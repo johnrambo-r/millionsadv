@@ -324,6 +324,9 @@ overflow-x: hidden;
     .process-promise strong {
       color: #173E4C;
     }
+    .hamburger {
+      display: none;
+    }
     /* Hero */
     .hero {
       padding: 70px 0 60px;
@@ -762,33 +765,143 @@ overflow-wrap: break-word;
     }
     @media (max-width: 768px) {
   .container {
-    padding: 0 20px;
+    padding: 0 18px;
   }
-  .hero-content h1 {
-    font-size: 2.2rem;
+  /* Nav */
+  nav .container {
+    position: relative;
+    flex-wrap: nowrap;
+    align-items: center;
   }
-  .hero-content p {
-    max-width: 100%;
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .hamburger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #1B5A5C;
+    border-radius: 2px;
+    transition: 0.3s;
   }
   .nav-links {
-    margin-top: 12px;
-    width: 100%;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 16px 20px 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    z-index: 100;
+    gap: 0;
+    border-top: 1px solid #E4EDE8;
+  }
+  .nav-links.open {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
   }
   .nav-links a {
     margin-left: 0;
-    font-size: 0.85rem;
+    padding: 12px 0;
+    font-size: 1rem;
+    border-bottom: 1px solid #F0F5F3;
+    color: #2C485C;
   }
+  .nav-links .btn-outline {
+    margin-top: 12px;
+    text-align: center;
+    border-bottom: none;
+  }
+  /* Logo */
+  .logo {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-text {
+    font-size: 1.2rem;
+  }
+  .logo-tagline {
+    font-size: 0.6rem;
+  }
+  .logo-img {
+    height: 36px;
+  }
+  .logo-img-wrapper {
+    height: 44px;
+    width: 44px;
+  }
+  /* Hero */
+  .hero {
+    padding: 40px 0 48px;
+  }
+  .hero-grid {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .hero-content h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+  .hero-image {
+    width: 100%;
+  }
+  .process-panel {
+    padding: 20px;
+  }
+  /* Sections */
   .section {
-    padding: 50px 0;
+    padding: 48px 0;
   }
+  .section-title {
+    font-size: 1.6rem;
+  }
+  /* Grids */
   .industry-grid, .case-grid, .testimonials-grid, .insights-grid {
     grid-template-columns: 1fr !important;
   }
+  /* KPI */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 32px 20px;
+  }
+  .kpi-item {
+    padding: 20px 12px;
+  }
+  .kpi-item h2 {
+    font-size: 2rem;
+  }
+  .kpi-item p {
+    font-size: 0.8rem;
+  }
+  /* Contact */
   .contact-cta {
-    padding: 36px 24px;
+    padding: 36px 20px;
   }
   .contact-grid {
     flex-direction: column;
@@ -796,52 +909,18 @@ overflow-wrap: break-word;
   .contact-cta-text {
     text-align: center;
   }
-  .footer-flex {
-    flex-direction: column;
-    gap: 28px;
-    text-align: center;
-    align-items: center;
-  }
-  .kpi-grid {
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    padding: 40px 20px;
-  }
-  .kpi-item {
-    flex: 0 1 auto;
-    width: 100%;
-    max-width: 260px;
-  }
-  .kpi-item h2 {
-    font-size: 2.2rem;
-  }
-  .logo {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .logo-text {
-    font-size: 1.5rem;
-  }
-  .logo-img {
-    max-height: 56px;
-  margin-right: -4px;
-  }
-  .hero-grid {
-    flex-direction: column;
-  }
-  .hero-image {
-    width: 100%;
-  }
   .contact-details-grid {
     grid-template-columns: auto 1fr;
     gap: 14px 16px;
   }
-  body {
-    overflow-x: hidden;
+  /* Footer */
+  .footer-flex {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+    align-items: center;
   }
-  .container {
+  body {
     overflow-x: hidden;
   }
 }
@@ -858,7 +937,10 @@ overflow-wrap: break-word;
     <div class="logo-tagline">Partnering Since 2016</div>
   </div>
 </div>
-    <div class="nav-links">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="#capabilities">Capabilities</a>
       <a href="#industries">Industries</a>
       <a href="#stories">Stories</a>
@@ -1136,7 +1218,7 @@ overflow-wrap: break-word;
     </div>
   </div>
   <div class="container" style="margin-top: 32px; text-align: center; border-top: 1px solid #E2EAE4; padding-top: 24px;">
-    <p style="font-size: 0.8rem; color: #7A95AB;">© 2026 Millions Advisory LLP — Building high-impact teams in India. &nbsp;|&nbsp; <a href="/sitemap.xml" style="color:#7A95AB; text-decoration:none;">Sitemap</a></p>
+    <p style="font-size: 0.8rem; color: #7A95AB;">© 2026 Millions Advisory LLP — Building high-impact teams in India. &nbsp;|&nbsp; <a href="https://www.millionsadvisory.com/sitemap.xml" target="_blank" style="color:#7A95AB; text-decoration:none;">Sitemap</a></p>
   </div>
 </footer>
 
@@ -1169,6 +1251,12 @@ overflow-wrap: break-word;
 </div>
 
 <script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  if(hamburger) hamburger.onclick = () => navLinks.classList.toggle('open');
+  // Close nav when a link is clicked
+  if(navLinks) navLinks.querySelectorAll('a').forEach(a => a.onclick = () => navLinks.classList.remove('open'));
+
   const modal = document.getElementById('contactModal');
   const openBtn = document.getElementById('openContactModal');
   const openBtnHero = document.getElementById('openContactModalHero');
