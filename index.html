@@ -126,7 +126,6 @@
       color: #1F2E3A;
       scroll-behavior: smooth;
       line-height: 1.5;
-overflow-x: hidden;
 width: 100%;
     }
     .container {
@@ -135,7 +134,6 @@ width: 100%;
       padding: 0 32px;
       padding-left: max(32px, env(safe-area-inset-left));
       padding-right: max(32px, env(safe-area-inset-right));
-      overflow-x: hidden;
     }
     /* Navbar */
     .navbar {
@@ -146,6 +144,7 @@ width: 100%;
       backdrop-filter: blur(12px);
       border-bottom: 1px solid #EFF3F0;
       padding: 16px 0;
+      overflow: visible;
     }
     .nav-flex {
       display: flex;
@@ -337,6 +336,9 @@ width: 100%;
       color: #173E4C;
     }
     .mobile-nav {
+      display: none;
+    }
+    .hamburger {
       display: none;
     }
     /* Hero */
@@ -783,25 +785,64 @@ overflow-wrap: break-word;
   .container {
     padding: 0 18px;
   }
-  /* Nav - hide desktop links, show compact logo only */
-  .nav-links {
-    display: none !important;
-  }
+  /* Nav */
   nav .container {
-    justify-content: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    position: relative;
+    overflow: visible;
   }
-  /* Mobile bottom nav bar */
-  .mobile-nav {
+  .hamburger {
     display: flex;
-    position: fixed;
-    bottom: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .hamburger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #1B5A5C;
+    border-radius: 2px;
+  }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
     background: white;
-    border-top: 1px solid #E4EDE8;
-    z-index: 1000;
-    padding: 8px 0 12px;
-    box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+    border-top: 2px solid #2A7F6E;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 9999;
+    padding: 8px 0;
+  }
+  .nav-links.open {
+    display: flex;
+  }
+  .nav-links a {
+    display: block !important;
+    padding: 14px 24px !important;
+    margin: 0 !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    color: #173E4C !important;
+    border-bottom: 1px solid #F0F5F3;
+    text-decoration: none !important;
+  }
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+  /* Mobile bottom nav bar */
+  .mobile-nav {
+    display: none;
   }
   .mobile-nav a {
     flex: 1;
@@ -830,7 +871,6 @@ overflow-wrap: break-word;
   }
   /* Add bottom padding to body so content isn't hidden behind nav */
   body {
-    padding-bottom: 70px;
   }
   /* Logo */
   .logo {
@@ -908,6 +948,13 @@ overflow-wrap: break-word;
   .kpi-item p {
     font-size: 0.8rem;
   }
+  .btn-outline {
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 14px 24px !important;
+    background: transparent !important;
+    color: #173E4C !important;
+  }
   /* Scroll offset */
   section, #capabilities, #industries, #stories, #insights, #contact {
     scroll-margin-top: 72px;
@@ -954,7 +1001,7 @@ overflow-wrap: break-word;
     align-items: center;
   }
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
   </style>
@@ -963,20 +1010,21 @@ overflow-wrap: break-word;
 
 <nav class="navbar">
   <div class="container nav-flex">
-    <div class="logo">
+    <a href="#" class="logo" style="text-decoration:none;">
   <div class="logo-img-wrapper"><img src="https://res.cloudinary.com/dcs7kqmmu/image/upload/v1777354910/Millions-Logo-removebg-preview_e3mpgx.png" alt="Millions Advisory" class="logo-img"></div>
   <div class="logo-text-wrapper">
     <div class="logo-text">MILLIONS ADVISORY</div>
     <div class="logo-tagline">Partnering Since 2016</div>
   </div>
-</div>
+</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
       <a href="#capabilities">Capabilities</a>
       <a href="#industries">Industries</a>
       <a href="#stories">Stories</a>
       <a href="#insights">Insights</a>
       <a href="https://blog.millionsadvisory.com" target="_blank" rel="noopener">Blog</a>
-      <a href="#contact" class="btn-outline">Connect</a>
+      <a href="#contact">Connect</a>
     </div>
   </div>
 </nav>
@@ -1282,6 +1330,29 @@ overflow-wrap: break-word;
 </div>
 
 <script>
+  // --- Hamburger ---
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('navLinks');
+  if (hamburger && navLinks && !hamburger.dataset.bound) {
+    hamburger.dataset.bound = 'true';
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+      } else {
+        navLinks.classList.add('open');
+      }
+    });
+    navLinks.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { navLinks.classList.remove('open'); });
+    });
+    document.addEventListener('click', function(e) {
+      if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('open');
+      }
+    });
+  }
+
   // --- Contact Modal ---
   var modal = document.getElementById('contactModal');
   var openBtn = document.getElementById('openContactModal');
