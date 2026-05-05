@@ -145,7 +145,7 @@ overflow-x: hidden;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
 .logo {
   display: flex;
@@ -795,7 +795,7 @@ overflow-wrap: break-word;
     transition: 0.3s;
   }
   .nav-links {
-    display: none;
+    display: none !important;
     flex-direction: column;
     position: absolute;
     top: 100%;
@@ -809,7 +809,7 @@ overflow-wrap: break-word;
     border-top: 1px solid #E4EDE8;
   }
   .nav-links.open {
-    display: flex;
+    display: flex !important;
   }
   .nav-links a {
     margin-left: 0;
@@ -945,6 +945,7 @@ overflow-wrap: break-word;
       <a href="#industries">Industries</a>
       <a href="#stories">Stories</a>
       <a href="#insights">Insights</a>
+      <a href="https://blog.millionsadvisory.com" target="_blank" rel="noopener">Blog</a>
       <a href="#contact" class="btn-outline">Connect</a>
     </div>
   </div>
