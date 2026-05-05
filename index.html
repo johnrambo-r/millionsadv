@@ -194,6 +194,10 @@ overflow-x: hidden;
       transition: 0.2s;
       font-size: 0.95rem;
     }
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
     .nav-links a:hover {
       color: #2A7F6E;
     }
@@ -795,7 +799,7 @@ overflow-wrap: break-word;
     transition: 0.3s;
   }
   .nav-links {
-    display: none !important;
+    display: none;
     flex-direction: column;
     position: absolute;
     top: 100%;
@@ -809,7 +813,7 @@ overflow-wrap: break-word;
     border-top: 1px solid #E4EDE8;
   }
   .nav-links.open {
-    display: flex !important;
+    display: flex;
   }
   .nav-links a {
     margin-left: 0;
@@ -940,7 +944,7 @@ overflow-wrap: break-word;
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
-    <div class="nav-links" id="navLinks" style="display:none;">
+    <div class="nav-links" id="navLinks">
       <a href="#capabilities">Capabilities</a>
       <a href="#industries">Industries</a>
       <a href="#stories">Stories</a>
@@ -1256,22 +1260,17 @@ overflow-wrap: break-word;
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
   if(hamburger && navLinks) {
-    hamburger.addEventListener('click', function(e) {
-      e.stopPropagation();
-      if(navLinks.style.display === 'flex') {
-        navLinks.style.display = 'none';
-      } else {
-        navLinks.style.cssText = 'display:flex; flex-direction:column; position:absolute; top:100%; left:0; right:0; background:white; padding:16px 20px 20px; box-shadow:0 8px 24px rgba(0,0,0,0.08); z-index:1001; border-top:1px solid #E4EDE8;';
-      }
+    hamburger.addEventListener('click', function() {
+      navLinks.classList.toggle('open');
     });
     navLinks.querySelectorAll('a').forEach(function(a) {
       a.addEventListener('click', function() {
-        navLinks.style.display = 'none';
+        navLinks.classList.remove('open');
       });
     });
     document.addEventListener('click', function(e) {
       if(!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-        navLinks.style.display = 'none';
+        navLinks.classList.remove('open');
       }
     });
   }
