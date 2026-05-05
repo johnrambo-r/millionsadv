@@ -194,9 +194,11 @@ overflow-x: hidden;
       transition: 0.2s;
       font-size: 0.95rem;
     }
-    .nav-links {
-      display: flex;
-      align-items: center;
+    @media (min-width: 769px) {
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
     }
     .nav-links a:hover {
       color: #2A7F6E;
