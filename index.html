@@ -940,7 +940,7 @@ overflow-wrap: break-word;
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
-    <div class="nav-links" id="navLinks">
+    <div class="nav-links" id="navLinks" style="display:none;">
       <a href="#capabilities">Capabilities</a>
       <a href="#industries">Industries</a>
       <a href="#stories">Stories</a>
@@ -1258,16 +1258,20 @@ overflow-wrap: break-word;
   if(hamburger && navLinks) {
     hamburger.addEventListener('click', function(e) {
       e.stopPropagation();
-      navLinks.classList.toggle('open');
+      if(navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+      } else {
+        navLinks.style.display = 'flex';
+      }
     });
     navLinks.querySelectorAll('a').forEach(function(a) {
       a.addEventListener('click', function() {
-        navLinks.classList.remove('open');
+        navLinks.style.display = 'none';
       });
     });
     document.addEventListener('click', function(e) {
       if(!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-        navLinks.classList.remove('open');
+        navLinks.style.display = 'none';
       }
     });
   }
