@@ -135,7 +135,7 @@ overflow-x: hidden;
     .navbar {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid #EFF3F0;
@@ -804,7 +804,7 @@ overflow-wrap: break-word;
     background: white;
     padding: 16px 20px 20px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    z-index: 100;
+    z-index: 1001;
     gap: 0;
     border-top: 1px solid #E4EDE8;
   }
@@ -1252,11 +1252,25 @@ overflow-wrap: break-word;
 </div>
 
 <script>
+  document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
-  if(hamburger) hamburger.onclick = () => navLinks.classList.toggle('open');
-  // Close nav when a link is clicked
-  if(navLinks) navLinks.querySelectorAll('a').forEach(a => a.onclick = () => navLinks.classList.remove('open'));
+  if(hamburger && navLinks) {
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if(!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove('open');
+      }
+    });
+  }
 
   const modal = document.getElementById('contactModal');
   const openBtn = document.getElementById('openContactModal');
@@ -1267,6 +1281,7 @@ overflow-wrap: break-word;
   if(openBtnHero) openBtnHero.onclick = openModal;
   if(closeBtn) closeBtn.onclick = () => modal.style.display = 'none';
   window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
+
   const form = document.getElementById('consultForm');
   if(form) form.onsubmit = async (e) => {
     e.preventDefault();
@@ -1287,6 +1302,7 @@ overflow-wrap: break-word;
       alert('Something went wrong. Please email us directly at hello@millionsadvisory.com');
     }
   };
+
   document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const target = this.getAttribute('href');
@@ -1295,6 +1311,7 @@ overflow-wrap: break-word;
       if(el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
-</script>
+
+  }); // end DOMContentLoaded</script>
 </body>
 </html>
