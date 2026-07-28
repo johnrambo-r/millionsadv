@@ -154,22 +154,27 @@
     }
     .cred-item i { color: #2A7F6E; }
     /* Sections */
-    .section { padding: 48px 0; }
+    .section { padding: 0; }
     .section-narrow { max-width: 960px; margin: 0; }
-    .section h2 { font-size: 1.7rem; font-weight: 700; color: #173E4C; margin-bottom: 12px; }
+    /* Shared heading rhythm for every h2 in a content section: fixed
+       gap above (from whatever precedes it) and a tighter, fixed gap
+       below (to its own content). This is the single source of truth —
+       do not add per-section margin overrides. */
+    .section h2 { font-size: 1.7rem; font-weight: 700; color: #173E4C; margin-top: 56px; margin-bottom: 14px; }
     .section p { color: #3F5A6E; font-size: 1.02rem; line-height: 1.7; margin-bottom: 14px; }
-    .content-block { margin-bottom: 32px; }
-    .content-block:last-child { margin-bottom: 0; }
+    .content-block { margin-bottom: 0; }
     .section ul { margin: 0 0 16px 0; padding: 0; list-style: none; }
     .section ul li {
       color: #2B4052; font-size: 1rem; line-height: 1.6; padding: 10px 0 10px 30px; position: relative;
       border-bottom: 1px solid #F0F5F3;
     }
+    .section ul li:first-child { padding-top: 0; }
     .section ul li:before { content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #2A7F6E; position: absolute; left: 0; top: 10px; font-size: 0.8rem; }
+    .section ul li:first-child:before { top: 0; }
     .section ul li:last-child { border-bottom: none; }
     .alt-bg { background: #FBFDFA; }
     /* Process visual (reused from homepage pattern) */
-    .process-panel { background: white; border-radius: 24px; padding: 32px; border: 1px solid #D8EDE5; max-width: 960px; margin: 0; }
+    .process-panel { background: white; border-radius: 24px; padding: 0 32px; border: 1px solid #D8EDE5; max-width: 960px; margin: 0; }
     .process-steps { display: flex; flex-direction: column; gap: 0; }
     .process-step { display: flex; align-items: center; gap: 16px; }
     .process-connector { width: 2px; height: 20px; background: #D8EDE5; margin-left: 21px; }
@@ -181,7 +186,7 @@
     .process-step-title { font-size: 1.05rem; font-weight: 700; color: #173E4C; line-height: 1.2; text-align: left; }
     .process-step-sub { font-size: 0.9rem; color: #5F7A8C; line-height: 1.4; text-align: left; }
     /* Contact CTA (reused from homepage) */
-    .contact-cta { background: #173E4C; border-radius: 48px; padding: 56px 48px; margin: 8px 0 0; }
+    .contact-cta { background: #173E4C; border-radius: 48px; padding: 56px 48px; margin: 48px 0 0; }
     .contact-grid { display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; justify-content: space-between; }
     .contact-cta-text { flex: 2; }
     .contact-cta-text h2 { color: white; font-size: 1.7rem; margin-bottom: 12px; }
@@ -235,9 +240,7 @@
       .hero { padding: 36px 0 40px; }
       .hero h1 { font-size: 2rem; }
       .hero-lead { font-size: 0.95rem; }
-      .section { padding: 32px 0; }
       .section h2 { font-size: 1.4rem; }
-      .content-block { margin-bottom: 26px; }
       .btn-primary { width: 100%; text-align: center; }
       .contact-cta { padding: 28px 20px; border-radius: 28px; }
       .contact-grid { flex-direction: column; gap: 24px; }
