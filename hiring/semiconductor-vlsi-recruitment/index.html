@@ -118,9 +118,21 @@
     .logo-text-wrapper { display: flex; flex-direction: column; justify-content: center; }
     .logo-text { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; color: #1B5A5C; line-height: 1.2; }
     .logo-tagline { font-weight: 500; font-size: 0.7rem; color: #5C7282; letter-spacing: 0.3px; }
-    .nav-links a { text-decoration: none; margin-left: 26px; font-weight: 500; color: #2C485C; transition: 0.2s; font-size: 0.92rem; white-space: nowrap; }
+    .nav-links a { text-decoration: none; margin-left: 32px; font-weight: 500; color: #2C485C; transition: 0.2s; font-size: 0.95rem; white-space: nowrap; }
     @media (min-width: 769px) { .nav-links { display: flex; align-items: center; } }
     .nav-links a:hover { color: #2A7F6E; }
+    .nav-dropdown { position: relative; margin-left: 32px; }
+    .nav-dropdown summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500; color: #2C485C; font-size: 0.95rem; transition: 0.2s; }
+    .nav-dropdown summary::-webkit-details-marker { display: none; }
+    .nav-dropdown summary:hover { color: #2A7F6E; }
+    .nav-dropdown summary:after { content: "\f078"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.65rem; color: #2A7F6E; transition: transform 0.2s; }
+    .nav-dropdown[open] summary:after { transform: rotate(180deg); }
+    .nav-dropdown-menu { display: flex; flex-direction: column; }
+    @media (min-width: 769px) {
+      .nav-dropdown-menu { position: absolute; top: calc(100% + 14px); left: 0; background: white; border: 1px solid #E6F0EB; border-radius: 16px; box-shadow: 0 12px 24px -12px rgba(0,0,0,0.15); padding: 8px; min-width: 240px; z-index: 1100; }
+      .nav-dropdown-menu a { margin: 0 !important; padding: 10px 14px !important; border-radius: 10px; font-size: 0.9rem !important; }
+      .nav-dropdown-menu a:hover { background: #F2F8F4; }
+    }
     .hamburger { display: none; }
     /* Hero */
     .hero { padding: 56px 0 48px; background: #FBFDF9; }
@@ -142,10 +154,12 @@
     }
     .cred-item i { color: #2A7F6E; }
     /* Sections */
-    .section { padding: 64px 0; }
+    .section { padding: 48px 0; }
     .section-narrow { max-width: 780px; margin: 0 auto; }
-    .section h2 { font-size: 1.7rem; font-weight: 700; color: #173E4C; margin-bottom: 18px; }
-    .section p { color: #3F5A6E; font-size: 1.02rem; line-height: 1.7; margin-bottom: 16px; }
+    .section h2 { font-size: 1.7rem; font-weight: 700; color: #173E4C; margin-bottom: 12px; }
+    .section p { color: #3F5A6E; font-size: 1.02rem; line-height: 1.7; margin-bottom: 14px; }
+    .content-block { margin-bottom: 32px; }
+    .content-block:last-child { margin-bottom: 0; }
     .section ul { margin: 0 0 16px 0; padding: 0; list-style: none; }
     .section ul li {
       color: #2B4052; font-size: 1rem; line-height: 1.6; padding: 10px 0 10px 30px; position: relative;
@@ -209,6 +223,10 @@
       .nav-links.open { display: flex; }
       .nav-links a { display: block !important; padding: 14px 24px !important; margin: 0 !important; font-size: 1rem !important; font-weight: 500 !important; color: #173E4C !important; border-bottom: 1px solid #F0F5F3; text-decoration: none !important; }
       .nav-links a:last-child { border-bottom: none; }
+      .nav-dropdown { margin-left: 0; border-bottom: 1px solid #F0F5F3; }
+      .nav-dropdown summary { padding: 14px 24px !important; font-size: 1rem !important; font-weight: 500 !important; color: #173E4C !important; }
+      .nav-dropdown-menu { background: #FAFCFB; padding-bottom: 4px; }
+      .nav-dropdown-menu a { padding-left: 40px !important; border-bottom: none !important; }
       nav .container { justify-content: space-between; flex-wrap: nowrap; position: relative; overflow: visible; }
       .logo-text { font-size: 1.2rem; }
       .logo-tagline { font-size: 0.6rem; }
@@ -217,8 +235,9 @@
       .hero { padding: 36px 0 40px; }
       .hero h1 { font-size: 2rem; }
       .hero-lead { font-size: 0.95rem; }
-      .section { padding: 40px 0; }
+      .section { padding: 32px 0; }
       .section h2 { font-size: 1.4rem; }
+      .content-block { margin-bottom: 26px; }
       .btn-primary { width: 100%; text-align: center; }
       .contact-cta { padding: 28px 20px; border-radius: 28px; }
       .contact-grid { flex-direction: column; gap: 24px; }
@@ -246,12 +265,17 @@
     <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
       <a href="/#capabilities">Capabilities</a>
-      <a href="/#industries">Industries</a>
+      <details class="nav-dropdown">
+        <summary>Industries</summary>
+        <div class="nav-dropdown-menu">
+          <a href="/#industries">Overview</a>
+          <a href="/hiring/tech-gcc-recruitment">Tech & GCC Hiring</a>
+          <a href="/hiring/semiconductor-vlsi-recruitment">Semiconductor & VLSI Hiring</a>
+        </div>
+      </details>
       <a href="/#stories">Stories</a>
       <a href="/#insights">Insights</a>
       <a href="https://blog.millionsadvisory.com" target="_blank" rel="noopener">Blog</a>
-      <a href="/hiring/tech-gcc-recruitment">Tech & GCC Hiring</a>
-      <a href="/hiring/semiconductor-vlsi-recruitment">Semiconductor & VLSI Hiring</a>
       <a href="#contact">Connect</a>
     </div>
   </div>
@@ -273,35 +297,29 @@
     </div>
   </section>
 
-  <!-- The problem we solve -->
+  <!-- Problem, what we hire for, how we screen -->
   <section class="section">
     <div class="container section-narrow">
-      <h2>The problem we solve</h2>
-      <p>Search "RTL Design" or "Physical Design" on any resume database and you'll get results that look right and hire wrong. The title has been commoditised — a candidate who runs EDA tools competently and a candidate who understands the engineering reasoning behind the flow can carry an identical designation. We've built our technical screening specifically to catch that gap before it costs you a mis-hire.</p>
-    </div>
-  </section>
-
-  <!-- What we hire for -->
-  <section class="section alt-bg">
-    <div class="container section-narrow">
-      <h2>What we hire for</h2>
-      <ul>
-        <li>RTL Design and Verification Engineers</li>
-        <li>Physical Design Engineers</li>
-        <li>Analog/Mixed-Signal Design Engineers</li>
-        <li>DFT (Design for Test) Engineers</li>
-        <li>Semiconductor GCC leadership and engineering management</li>
-        <li>Embedded systems and firmware engineers for chip and hardware teams</li>
-        <li>Silicon validation and post-silicon debug roles</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- How we screen -->
-  <section class="section">
-    <div class="container section-narrow">
-      <h2>How we screen</h2>
-      <p>Our technical screening goes past tool familiarity — Cadence, Synopsys, and Mentor experience shows up on every resume in this space. We evaluate the reasoning behind a candidate's design decisions, not just their exposure to the tools, because that's what actually predicts whether they can operate independently on your team.</p>
+      <div class="content-block">
+        <h2>The problem we solve</h2>
+        <p>Search "RTL Design" or "Physical Design" on any resume database and you'll get results that look right and hire wrong. The title has been commoditised — a candidate who runs EDA tools competently and a candidate who understands the engineering reasoning behind the flow can carry an identical designation. We've built our technical screening specifically to catch that gap before it costs you a mis-hire.</p>
+      </div>
+      <div class="content-block">
+        <h2>What we hire for</h2>
+        <ul>
+          <li>RTL Design and Verification Engineers</li>
+          <li>Physical Design Engineers</li>
+          <li>Analog/Mixed-Signal Design Engineers</li>
+          <li>DFT (Design for Test) Engineers</li>
+          <li>Semiconductor GCC leadership and engineering management</li>
+          <li>Embedded systems and firmware engineers for chip and hardware teams</li>
+          <li>Silicon validation and post-silicon debug roles</li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <h2>How we screen</h2>
+        <p>Our technical screening goes past tool familiarity — Cadence, Synopsys, and Mentor experience shows up on every resume in this space. We evaluate the reasoning behind a candidate's design decisions, not just their exposure to the tools, because that's what actually predicts whether they can operate independently on your team.</p>
+      </div>
     </div>
   </section>
 
@@ -469,6 +487,12 @@
       }
     });
   }
+
+  document.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-dropdown[open]').forEach(function(d) {
+      if (!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
 
   var modal = document.getElementById('contactModal');
   var openBtn = document.getElementById('openContactModal');
